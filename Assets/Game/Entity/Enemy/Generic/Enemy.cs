@@ -10,6 +10,8 @@ namespace Game.Entity.Enemy
 
         [field:SerializeField] public EnemyModel Model { get; private set; }
 
+        public GameObject GameObject => gameObject;
+
         public void Disable()
         {
             

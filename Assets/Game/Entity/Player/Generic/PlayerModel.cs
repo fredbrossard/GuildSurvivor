@@ -13,5 +13,6 @@ namespace Game.Entity.Player
         public byte initialLvl;
         public uint initialAttack;
         public float cooldownAttack;
+        public float initialSpeed;
     }
 }

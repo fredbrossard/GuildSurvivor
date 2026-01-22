@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: NormalPlayerData
   m_EditorClassIdentifier: Assembly-CSharp::Game.Entity.Model.PlayerModel
   sprite: {fileID: 7482667652216324306, guid: 9868f23a17f86be4ba6b3d57d8936039, type: 3}
-  intitialHealth:
-    min: 0
-    max: 95
+  initialMaxHealth: 0
+  initialLvl: 0
   initialAttack: 0
+  cooldownAttack: 0
+  initialSpeed: 0.75

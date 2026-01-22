@@ -1,8 +1,11 @@
+using UnityEngine;
+
 namespace Game.Entity.Generic
 {
     public interface IEntity<T> where T : IEntityModel
     {
-        public bool IsAlive { get; set; }
+        public GameObject GameObject { get;}
+        public bool IsAlive { get; }
         public T Model { get; }
 
         public void Initialize();
