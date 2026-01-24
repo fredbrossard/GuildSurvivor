@@ -9,7 +9,7 @@ namespace Game.Entity.Generic
         public T Model { get; }
 
         public void Initialize();
-        public void Enable();
-        public void Disable();
+        public void Alive();
+        public void Die();
     }
 }

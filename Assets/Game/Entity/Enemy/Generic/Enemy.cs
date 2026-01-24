@@ -1,10 +1,11 @@
 using Game.Entity.Generic;
 using Game.Entity.Model;
+using Managers.Spawner;
 using UnityEngine;
 
 namespace Game.Entity.Enemy
 {
-    public class Enemy : MonoBehaviour, IEntity<EnemyModel>
+    public class Enemy : MonoBehaviour, IEntity<EnemyModel>, ISpawnableObj
     {
         public bool IsAlive { get; set; }
 
@@ -12,14 +13,14 @@ namespace Game.Entity.Enemy
 
         public GameObject GameObject => gameObject;
 
-        public void Disable()
+        public void Alive()
         {
-            
+            IsAlive = true;
         }
 
-        public void Enable()
+        public void Die()
         {
-            
+            IsAlive = false;
         }
 
         public void Initialize()

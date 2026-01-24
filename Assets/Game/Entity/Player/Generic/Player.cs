@@ -22,21 +22,19 @@ namespace Game.Entity.Player
             Initialize();
         }
 
-        public void Enable()
-        {
-            gameObject.SetActive(true);
-        }
-
-        public void Disable()
-        {
-            gameObject.SetActive(true);
-        }
-
         public void Initialize()
         {
             PlayerMovement.SetSpeed(Model.initialSpeed);
+        }
 
-            Enable();
+        public void Alive()
+        {
+            IsAlive = true;
+        }
+
+        public void Die()
+        {
+            IsAlive = false;
         }
     }
 }
