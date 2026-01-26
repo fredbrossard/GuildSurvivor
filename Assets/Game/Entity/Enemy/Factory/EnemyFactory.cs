@@ -8,9 +8,9 @@ namespace Entity.Enemy
     {
         [Inject] LevelService m_service;
 
-        private void Start()
+        private void Awake()
         {
-            Bind(m_service.gameSettings.enemySettings.poolRefs);
+            Bind(m_service.levelSettings.enemySpawnSettings.poolRefs);
         }
 
         public override EnemyObj GetObj(EnemyObj obj)

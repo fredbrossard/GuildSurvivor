@@ -7,6 +7,7 @@ namespace Game.Entity.Enemy
 {
     public class EnemyObj : MonoBehaviour, IEntity<EnemyModel>, ISpawnableObj
     {
+        public SpriteRenderer spriteRenderer;
         public bool IsAlive { get; set; }
 
         [field:SerializeField] public EnemyModel Model { get; private set; }
@@ -23,9 +24,9 @@ namespace Game.Entity.Enemy
             IsAlive = false;
         }
 
-        public void Initialize()
+        public void Bind()
         {
-           
+            spriteRenderer.sprite = Model.sprite;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Managers.Spawner
             {
                 GameObject obj = Instantiate(PoolRef.prefab, transform);
                 obj.SetActive(false);
+                obj.GetComponent<ISpawnableObj>().Bind();
                 m_stack.Push(obj.GetComponent<ISpawnableObj>());
             }
         }

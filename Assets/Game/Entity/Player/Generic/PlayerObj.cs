@@ -19,10 +19,10 @@ namespace Game.Entity.Player
 
         void Start()
         {
-            Initialize();
+            Bind();
         }
 
-        public void Initialize()
+        public void Bind()
         {
             PlayerMovement.SetSpeed(Model.initialSpeed);
         }

@@ -6,11 +6,11 @@ namespace Game.Settings
     [CreateAssetMenu(fileName = "LevelSettings", menuName = "Installers/LevelSettings")]
     public class GameSettingsInstaller : ScriptableObjectInstaller
     {
-        [SerializeField] GameSettings GameSettings;
+        [SerializeField] LevelSettings levelSettings;
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameSettings>().FromInstance(GameSettings).AsSingle();
+            Container.BindInterfacesAndSelfTo<LevelSettings>().FromInstance(levelSettings).AsSingle();
         }
     }
 }

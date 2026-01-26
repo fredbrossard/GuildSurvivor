@@ -8,7 +8,7 @@ namespace Game.Entity.Generic
         public bool IsAlive { get; }
         public T Model { get; }
 
-        public void Initialize();
+        public void Bind();
         public void Alive();
         public void Die();
     }

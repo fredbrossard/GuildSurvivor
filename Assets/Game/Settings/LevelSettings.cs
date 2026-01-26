@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Game.Settings
 {
     [Serializable]
-    public class GameSettings
+    public class LevelSettings
     {
         [Header("Enemy")]
-        public EnemySettings enemySettings;
+        public EnemySpawnSettings enemySpawnSettings;
     }
 }

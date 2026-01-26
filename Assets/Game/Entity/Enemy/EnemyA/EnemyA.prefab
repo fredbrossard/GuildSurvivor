@@ -13,14 +13,6 @@ PrefabInstance:
       value: EnemyA
       objectReference: {fileID: 0}
     - target: {fileID: 1816031887604063984, guid: 00505fbac8242634e92251714b60e1b3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1816031887604063984, guid: 00505fbac8242634e92251714b60e1b3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1816031887604063984, guid: 00505fbac8242634e92251714b60e1b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -66,15 +58,15 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: a63942525d892544aa28bde460911c30, type: 2}
     - target: {fileID: 5698530665215548315, guid: 00505fbac8242634e92251714b60e1b3, type: 3}
       propertyPath: m_Color.b
-      value: 0.09416164
+      value: 0.10933607
       objectReference: {fileID: 0}
     - target: {fileID: 5698530665215548315, guid: 00505fbac8242634e92251714b60e1b3, type: 3}
       propertyPath: m_Color.g
-      value: 0.31638405
+      value: 0.46718597
       objectReference: {fileID: 0}
     - target: {fileID: 5698530665215548315, guid: 00505fbac8242634e92251714b60e1b3, type: 3}
       propertyPath: m_Color.r
-      value: 0.8679245
+      value: 0.8584906
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

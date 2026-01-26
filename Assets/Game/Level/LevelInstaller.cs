@@ -5,12 +5,13 @@ namespace Game.Level
 {
     public class LevelInstaller : MonoInstaller<LevelInstaller>
     {
-        [Inject] private GameSettings settings;
+        [Inject] private LevelSettings settings;
 
         public override void InstallBindings()
         {
             LevelService levelService = new LevelService();
             levelService.Bind(settings);
+
             Container.Bind<LevelService>().FromInstance(levelService).AsSingle();
         }
     }

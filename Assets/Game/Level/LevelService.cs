@@ -4,11 +4,11 @@ namespace Game.Level
 {
     public class LevelService
     {
-        public GameSettings gameSettings;
+        public LevelSettings levelSettings;
 
-        public void Bind(GameSettings _gameSettings)
+        public void Bind(LevelSettings _gameSettings)
         {
-            gameSettings = _gameSettings; 
+            levelSettings = _gameSettings; 
         }
     }
 }

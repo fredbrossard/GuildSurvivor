@@ -6,6 +6,6 @@ namespace Managers.Spawner
     {
         //public uint UId { get; set; }
         public GameObject GameObject { get; }
-        public void Initialize();
+        public void Bind();
     }
 }
