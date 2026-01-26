@@ -1,6 +1,7 @@
 using Entity.Enemy;
 using Game.Entity.Enemy;
 using Game.Settings;
+using Managers.Spawner;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -10,10 +11,9 @@ namespace Game.Level
     [RequireComponent(typeof(EnemyFactory))]
     public class MotherBrain : MonoBehaviour
     {
-        [Inject] LevelService levelService;
-
-        EnemyFactory m_enemyFactory;
-        WavesSettings m_wavesSettings;
+        [Inject] private LevelService levelService;
+        private EnemyFactory m_enemyFactory;
+        private WavesSettings m_wavesSettings;
 
         private void Awake()
         {

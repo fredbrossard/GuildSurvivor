@@ -16,18 +16,12 @@ namespace Managers.Spawner
 			//TODO improve object pool monobehaviour
 			foreach (var poolRef in poolRefs) 
 			{
-				ObjectPool objectPoolTemp = new GameObject().AddComponent<ObjectPool>();
-				objectPoolTemp.name = "ObjectPool";
-                ObjectPool objectPoolObj = Instantiate(objectPoolTemp, transform);
+                ObjectPool objectPoolObj = new GameObject("ObjectPool: " + poolRef.name).AddComponent<ObjectPool>();
+				objectPoolObj.transform.SetParent(transform);
 				objectPoolObj.Bind(poolRef);
 
                 m_pools.Add(poolRef.prefab.GetComponent<T>(), objectPoolObj);
 			}	
         }
-
-        public GameObject InstantiateObj(GameObject go)
-		{
-			return Instantiate(go);
-		}
 	}
 }

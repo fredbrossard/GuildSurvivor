@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Managers.Spawner
 {
@@ -22,14 +23,16 @@ namespace Managers.Spawner
             {
                 GameObject obj = Instantiate(PoolRef.prefab, transform);
                 obj.SetActive(false);
-                obj.GetComponent<ISpawnableObj>().Bind();
-                m_stack.Push(obj.GetComponent<ISpawnableObj>());
+
+                ISpawnableObj genericObj = obj.GetComponent<ISpawnableObj>();
+                genericObj.Bind();
+                m_stack.Push(genericObj);
             }
         }
 
         public ISpawnableObj GetAvailableEntity()
         {
-            ISpawnableObj obj = null;
+            ISpawnableObj obj = default;
 
             obj = m_stack.Count == 0
             ? Instantiate(PoolRef.prefab).GetComponent<ISpawnableObj>()
