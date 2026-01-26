@@ -2,9 +2,9 @@ using Game.Entity.Enemy;
 using Game.Level;
 using Zenject;
 
-namespace Entity.Spawner
+namespace Entity.Enemy
 {
-    public class EnemyFactory : Managers.Spawner.Factory<Enemy>
+    public class EnemyFactory : Managers.Spawner.Factory<EnemyObj>
     {
         [Inject] LevelService m_service;
 
@@ -13,9 +13,9 @@ namespace Entity.Spawner
             Bind(m_service.gameSettings.enemySettings.poolRefs);
         }
 
-        public override Enemy GetObj(Enemy obj)
+        public override EnemyObj GetObj(EnemyObj obj)
         {
-            Enemy currentEnemy = m_pools[obj].GetAvailableEntity() as Enemy; 
+            EnemyObj currentEnemy = m_pools[obj].GetAvailableEntity() as EnemyObj; 
             currentEnemy.Alive();
 
             return currentEnemy;

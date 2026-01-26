@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Entity.Enemy
 {
-    public class Enemy : MonoBehaviour, IEntity<EnemyModel>, ISpawnableObj
+    public class EnemyObj : MonoBehaviour, IEntity<EnemyModel>, ISpawnableObj
     {
         public bool IsAlive { get; set; }
 

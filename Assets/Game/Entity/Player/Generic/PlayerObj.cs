@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game.Entity.Player
 {
     [RequireComponent(typeof(PlayerMovement))]
-    public class Player : MonoBehaviour, IEntity<PlayerModel>
+    public class PlayerObj : MonoBehaviour, IEntity<PlayerModel>
     {
         public bool IsAlive { get; set ; }
         [field:SerializeField] public PlayerModel Model { get; private set ; }
