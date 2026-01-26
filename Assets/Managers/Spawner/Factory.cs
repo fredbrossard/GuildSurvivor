@@ -13,6 +13,7 @@ namespace Managers.Spawner
         {
             m_pools = new Dictionary<T, ObjectPool>();
 			
+			//TODO improve object pool monobehaviour
 			foreach (var poolRef in poolRefs) 
 			{
 				ObjectPool objectPoolTemp = new GameObject().AddComponent<ObjectPool>();

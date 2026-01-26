@@ -1,12 +1,14 @@
-using Game.Level;
-using Zenject;
+using Game.Settings;
 
-public class LevelService
+namespace Game.Level
 {
-    public GameSettings gameSettings;
-
-    public void Bind(GameSettings _gameSettings)
+    public class LevelService
     {
-        gameSettings = _gameSettings; 
+        public GameSettings gameSettings;
+
+        public void Bind(GameSettings _gameSettings)
+        {
+            gameSettings = _gameSettings; 
+        }
     }
 }

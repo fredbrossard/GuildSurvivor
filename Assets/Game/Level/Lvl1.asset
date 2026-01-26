@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Lvl1
   m_EditorClassIdentifier: 
   GameSettings:
-    enemyPoolRefs:
-    - name: EnemyA
-      prefab: {fileID: 2656880470139986281, guid: f0428cf978745264295c1bdd116333de, type: 3}
-      initialObjCount: 20
-    - name: EnemyB
-      prefab: {fileID: 5617258901306077738, guid: a761958335575f743aa578d706b3dc0c, type: 3}
-      initialObjCount: 20
+    enemySettings:
+      poolRefs:
+      - name: EnemyA
+        prefab: {fileID: 2656880470139986281, guid: f0428cf978745264295c1bdd116333de, type: 3}
+        initialObjCount: 20
+      - name: EnemyB
+        prefab: {fileID: 5617258901306077738, guid: a761958335575f743aa578d706b3dc0c, type: 3}
+        initialObjCount: 20

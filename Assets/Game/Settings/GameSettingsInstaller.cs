@@ -1,8 +1,7 @@
-using Managers.Spawner;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Level
+namespace Game.Settings
 {
     [CreateAssetMenu(fileName = "LevelSettings", menuName = "Installers/LevelSettings")]
     public class GameSettingsInstaller : ScriptableObjectInstaller

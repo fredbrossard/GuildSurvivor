@@ -1,12 +1,17 @@
-﻿using Zenject;
+﻿using Game.Settings;
+using Zenject;
 
-public class LevelInstaller : MonoInstaller<LevelInstaller>
+namespace Game.Level
 {
-    [Inject] private GameSettings settings;
-    public override void InstallBindings()
+    public class LevelInstaller : MonoInstaller<LevelInstaller>
     {
-        LevelService levelService = new LevelService();
-        levelService.Bind(settings);                                                                                                                         
-        Container.Bind<LevelService>().FromInstance(levelService).AsSingle();
+        [Inject] private GameSettings settings;
+
+        public override void InstallBindings()
+        {
+            LevelService levelService = new LevelService();
+            levelService.Bind(settings);
+            Container.Bind<LevelService>().FromInstance(levelService).AsSingle();
+        }
     }
 }

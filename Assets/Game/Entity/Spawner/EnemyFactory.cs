@@ -1,15 +1,16 @@
 using Game.Entity.Enemy;
+using Game.Level;
 using Zenject;
 
 namespace Entity.Spawner
 {
     public class EnemyFactory : Managers.Spawner.Factory<Enemy>
     {
-        [Inject] LevelService levelService;
+        [Inject] LevelService m_service;
 
         private void Start()
         {
-            Bind(levelService.gameSettings.enemyPoolRefs);
+            Bind(m_service.gameSettings.enemySettings.poolRefs);
         }
 
         public override Enemy GetObj(Enemy obj)
