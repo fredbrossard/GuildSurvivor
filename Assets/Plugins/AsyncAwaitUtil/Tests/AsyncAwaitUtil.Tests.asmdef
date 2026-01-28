@@ -1,0 +1,16 @@
+{
+    "name": "AsyncAwaitUtil.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:768cad691b7bfcb4790809783d0fe37b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
