@@ -1,9 +1,7 @@
 {
-    "name": "Spawner",
+    "name": "AsyncAwaitUtil.Source",
     "rootNamespace": "",
-    "references": [
-        "GUID:b66ad04a3f0c297459c57c9efe5452cc"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

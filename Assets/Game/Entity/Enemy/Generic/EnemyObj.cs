@@ -1,6 +1,7 @@
 using Game.Entity.Generic;
 using Game.Entity.Model;
 using Managers.Spawner;
+using System;
 using UnityEngine;
 
 namespace Game.Entity.Enemy
@@ -14,6 +15,8 @@ namespace Game.Entity.Enemy
 
         public GameObject GameObject => gameObject;
 
+        public Action<GameObject> OnReleaseObj { get; set ; }
+
         public void Alive()
         {
             IsAlive = true;
@@ -22,6 +25,7 @@ namespace Game.Entity.Enemy
         public void Die()
         {
             IsAlive = false;
+            OnReleaseObj?.Invoke(gameObject);
         }
 
         public void Bind()

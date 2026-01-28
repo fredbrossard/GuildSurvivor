@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 namespace Managers.Spawner
 {
-	public class ObjectPool : MonoBehaviour
+	public class ObjectPool<T> where T : ISpawnableObj
 	{
         public PoolRef PoolRef { get; private set; }
-        private Stack<ISpawnableObj> m_stack;
+        private Stack<T> m_stack;
+        private Transform m_parent;
 
-        public void Bind(PoolRef _poolRef)
+        public ObjectPool(PoolRef _poolRef, Transform _parent)
         {
             PoolRef = _poolRef;
-            m_stack = new Stack<ISpawnableObj>();
-            
+            m_stack = new Stack<T>();
+            GameObject objParent = InstantiationManager.Instance.InstantiateEmptyObj(_poolRef.name, _parent);
+            m_parent = objParent.transform;
             InstantiateObjs(PoolRef.initialObjCount);
         }
 
@@ -21,21 +22,22 @@ namespace Managers.Spawner
         {
             for (int i = 0; i < _count; ++i)
             {
-                GameObject obj = Instantiate(PoolRef.prefab, transform);
+                GameObject obj = InstantiationManager.Instance.InstantiateObj(PoolRef.prefab, m_parent);
                 obj.SetActive(false);
 
-                ISpawnableObj genericObj = obj.GetComponent<ISpawnableObj>();
+                T genericObj = obj.GetComponent<T>();
                 genericObj.Bind();
+                genericObj.OnReleaseObj += Release;
                 m_stack.Push(genericObj);
             }
         }
 
-        public ISpawnableObj GetAvailableEntity()
+        public T GetAvailableEntity()
         {
-            ISpawnableObj obj = default;
+            T obj = default;
 
             obj = m_stack.Count == 0
-            ? Instantiate(PoolRef.prefab).GetComponent<ISpawnableObj>()
+            ? InstantiationManager.Instance.InstantiateObj(PoolRef.prefab, m_parent).GetComponent<T>()
             : m_stack.Pop();
             
             obj.GameObject.SetActive(true);
@@ -43,10 +45,10 @@ namespace Managers.Spawner
             return obj;
         }
 
-        public void Release(ISpawnableObj obj)
+        private void Release(GameObject obj)
         {
-            obj.GameObject.SetActive(false);
-            m_stack.Push(obj);
+            obj.SetActive(false);
+            m_stack.Push(obj.GetComponent<T>());
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Entity.Enemy
 
         public override EnemyObj GetObj(EnemyObj obj)
         {
-            EnemyObj currentEnemy = m_pools[obj].GetAvailableEntity() as EnemyObj; 
+            EnemyObj currentEnemy = m_pools[obj].GetAvailableEntity(); 
             currentEnemy.Alive();
 
             return currentEnemy;
