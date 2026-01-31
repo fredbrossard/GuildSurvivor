@@ -1,7 +1,8 @@
+using Audio.Scriptable;
 using System;
 using UnityEngine;
 
-namespace Audio
+namespace Audio.Bus
 {
 	[Serializable]
 	public class SimpleBusSetting : BusSetting

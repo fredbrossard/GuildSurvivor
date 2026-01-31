@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Audio
+namespace Audio.Scriptable
 {
 	[CreateAssetMenu(fileName = "AudioLibrary", menuName = "Data/Audio/AudioLibrary", order = 2)]
 	public class AudioLibrary : ScriptableObject

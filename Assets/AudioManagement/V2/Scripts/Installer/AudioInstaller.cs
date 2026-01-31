@@ -1,12 +1,14 @@
+using Audio.Mono;
+using Audio.Scriptable;
 using UnityEngine;
 using Zenject;
 
-namespace Audio
+namespace Audio.Installer
 { 
     public class AudioInstaller : MonoInstaller
     {
         [SerializeField] private AudioObjManager audioSources;
-        [SerializeField] private Audio.AudioSetting audioSettings;
+        [SerializeField] private AudioSetting audioSettings;
 
         public override void InstallBindings()
         {

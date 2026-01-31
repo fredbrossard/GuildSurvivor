@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Audio
+namespace Audio.Scriptable
 {
 	[Serializable]
 	[CreateAssetMenu(fileName = "AudioElement", menuName = "Data/Audio/AudioElement", order = 3)]

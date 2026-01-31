@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.Audio;
 
-namespace Audio
+namespace Audio.Bus
 {
     [Serializable]
     public class BusSetting

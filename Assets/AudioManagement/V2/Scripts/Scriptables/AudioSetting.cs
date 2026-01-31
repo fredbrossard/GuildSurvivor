@@ -1,7 +1,8 @@
+using Audio.Bus;
 using UnityEngine;
 using Zenject;
 
-namespace Audio
+namespace Audio.Scriptable
 {
     [CreateAssetMenu(fileName = "AudioSetting", menuName = "Data/Audio/AudioSetting", order = 1)]
     public class AudioSetting : ScriptableObject

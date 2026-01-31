@@ -1,8 +1,9 @@
+using Audio.Bus;
 using UnityEngine;
 using Utils;
 using Zenject;
 
-namespace Audio
+namespace Audio.Mono
 {
     public class AudioObjManager : MonoBehaviour
     {
