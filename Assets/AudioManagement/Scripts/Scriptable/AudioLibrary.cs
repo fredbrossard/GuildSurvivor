@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AudioManagement.Scriptable
 {
-    [CreateAssetMenu(fileName = "AudioLibrary", menuName = "Data/Audio/AudioLibrary", order = 2)]
+    //[CreateAssetMenu(fileName = "AudioLibrary", menuName = "Data/Audio/AudioLibrary", order = 2)]
     public class AudioLibrary : ScriptableObject
     {
         [Tooltip("use it for file appear in git commit")] public int version;
@@ -15,7 +15,7 @@ namespace AudioManagement.Scriptable
 
         public async Task PreloadAudioData()
         {
-            if (!preloadAudioData && !audioClipsAreLoaded)
+            if (preloadAudioData && !audioClipsAreLoaded)
             {
                 foreach (var element in elements)
                 {
@@ -29,7 +29,7 @@ namespace AudioManagement.Scriptable
 
         public async Task UnloadAudioData()
         {
-            if (!preloadAudioData && audioClipsAreLoaded)
+            if (preloadAudioData && audioClipsAreLoaded)
             {
                 foreach (var element in elements)
                 {

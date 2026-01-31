@@ -4,9 +4,10 @@ using UnityEngine;
 namespace AudioManagement.Scriptable
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "AudioElement", menuName = "Data/Audio/AudioElement",order = 3)]
+    //[CreateAssetMenu(fileName = "AudioElement", menuName = "Data/Audio/AudioElement",order = 3)]
     public class AudioElement : ScriptableObject
     {
+        public AudioSource AudioSource { get; set; }
         public AudioClip clip;
         [Range(0f, 1f)] public float generalVolume = 1f;
         public (float min, float max) randomPitch = (1f, 1f); 

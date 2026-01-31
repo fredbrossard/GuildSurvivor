@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
-using AudioManagement.Service;
 
 namespace Game.Level
 {
@@ -14,7 +13,7 @@ namespace Game.Level
     public class MotherBrain : MonoBehaviour
     {
         [Inject] private LevelService levelService;
-        [Inject] private AudioService audioService; 
+        [Inject] private Audio.AudioService audioService; 
 
         private EnemyFactory m_enemyFactory;
         private WavesSettings m_wavesSettings;
@@ -40,7 +39,7 @@ namespace Game.Level
             if (spaceActionRef.action.WasPressedThisFrame())
             {
                 objA.Die();
-                audioService.Play("Tap", AudioBusType.uiSE);
+                audioService.Play("Tap");
             }
         }
 

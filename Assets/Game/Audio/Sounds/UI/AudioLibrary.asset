@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 212ed37a812c55d4a8593bd0ef6acc47, type: 3}
-  m_Name: UISoundLibrary
+  m_Script: {fileID: 11500000, guid: 8734a821c2132b344bfad038e09b03e3, type: 3}
+  m_Name: AudioLibrary
   m_EditorClassIdentifier: 
   version: 0
-  key: UI
   preloadAudioData: 0
   elements:
-  - {fileID: 11400000, guid: 22c0c7f20aded9c4db181d9c63600373, type: 2}
+  - {fileID: 11400000, guid: a0c1666398ee0ce4c888228cb13acf1a, type: 2}

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 517ad370e3b3c2b419346ebe75275c0d, type: 3}
+  m_Script: {fileID: 11500000, guid: ac103c5539de202418404142eff37585, type: 3}
   m_Name: Tap
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 2eaa773e53fdf1d4aa99813b214a3b3e, type: 3}
   generalVolume: 1
   isLooping: 0
-  playOneShot: 0
+  playOneShot: 1

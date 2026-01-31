@@ -24,20 +24,21 @@ MonoBehaviour:
   - mixerGroup: {fileID: 5037333993728177121, guid: 5917e19d9290e4443afe6ce32490ac3e, type: 2}
     playerPrefName: Music
     exposedParamName: Music
-    audioType: 0
+    playOnAwake: 1
     audioLibraries: []
   - mixerGroup: {fileID: 4498095859272351160, guid: 5917e19d9290e4443afe6ce32490ac3e, type: 2}
     playerPrefName: Ambient
     exposedParamName: Ambient
-    audioType: 1
+    playOnAwake: 1
     audioLibraries: []
   - mixerGroup: {fileID: -5408318041178787469, guid: 5917e19d9290e4443afe6ce32490ac3e, type: 2}
     playerPrefName: InGameSE
     exposedParamName: InGameSE
-    audioType: 2
+    playOnAwake: 0
     audioLibraries: []
   - mixerGroup: {fileID: 1324705375269701758, guid: 5917e19d9290e4443afe6ce32490ac3e, type: 2}
     playerPrefName: UI
     exposedParamName: UI
-    audioType: 2
-    audioLibraries: []
+    playOnAwake: 0
+    audioLibraries:
+    - {fileID: 11400000, guid: fd4cc1e54ba397f4485d9d230e59884a, type: 2}

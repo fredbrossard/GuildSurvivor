@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Managers.Spawner
+namespace Utils
 {
     //TODO inject stuff, no singleton
     public class InstantiationManager : MonoBehaviour
@@ -20,9 +20,20 @@ namespace Managers.Spawner
             return Instantiate(_prefab, _parent);
         }
 
-        public GameObject InstantiateEmptyObj(string _name, Transform _parent)
+        public GameObject InstantiateObj(GameObject _prefab)
+        {
+            return Instantiate(_prefab);
+        }
+
+        public GameObject InstantiateEmptyObj(string _name)
         {
             GameObject obj = new GameObject(_name);
+            return obj;
+        }
+
+        public GameObject InstantiateEmptyObj(string _name, Transform _parent)
+        {
+            GameObject obj = InstantiateEmptyObj(_name);
             obj.transform.parent = _parent;
             return obj;
         }
