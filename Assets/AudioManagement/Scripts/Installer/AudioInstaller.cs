@@ -1,27 +1,22 @@
-using AudioManagement.Bind;
-using AudioManagement.Scriptable;
-using AudioManagement.Service;
+using Audio.Mono;
+using Audio.Scriptable;
 using UnityEngine;
 using Zenject;
 
-namespace AudioManagement.Installer
-{
-    [RequireComponent(typeof(AudioSourceBusBind))]
+namespace Audio.Installer
+{ 
     public class AudioInstaller : MonoInstaller
     {
-        [SerializeField] private AudioSetup _audioSetup;
-        private AudioSourceBusBind _audioSourceBind;
+        [SerializeField] private AudioSourceController audioSources;
+        [SerializeField] private AudioSetup audioSettings;
 
         public override void InstallBindings()
         {
-            _audioSetup.Bind(Container);
-            Container.BindInstance(_audioSetup).AsSingle();
+            audioSettings.Bind(Container);
+            Container.BindInstance(audioSettings).AsSingle();
+            Container.Bind<AudioSourceController>().FromInstance(audioSources);
+
             Container.BindInterfacesAndSelfTo<AudioService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<AudioSnapshotService>().AsSingle();
-            
-            _audioSourceBind = GetComponent<AudioSourceBusBind>();
-            _audioSourceBind.Init();
-            Container.BindInstance(_audioSourceBind);
         }
     }
 }

@@ -1,201 +1,163 @@
-using System;
+using Audio.Bus;
+using Audio.Mono;
+using Audio.Scriptable;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AudioManagement.Bind;
-using AudioManagement.Group;
-using AudioManagement.Scriptable;
-using Utils;
 using UnityEngine;
-using UnityEngine.Audio;
+using Utils;
 using Zenject;
 
-namespace AudioManagement.Service
+namespace Audio
 {
     public class AudioService : IInitializable
     {
-        //[SerializeField] private bool withAdressable = false;
-        //[SerializeField, ShowIf("withAdressable", false)] 
-        public bool IsInit { get; private set; } = false;
-        public Action<bool, AudioBusType> OnPaused;
+        public bool IsInitialize { get; private set; }
 
-        [Inject] private AudioMixerData _audioMixerData;
-        [Inject] private AudioMasterGroupBind[] _audioMasterGroups;
-        [Inject] private AudioSourceBusBind _audioSourceBusBind;
+        [Inject] private AudioSetup m_setting;
+        [Inject] private AudioSourceController m_audioSources;
 
-        private Dictionary<AudioMasterType, AudioMasterGroup> _audioMasterGroupLibrary;
-        private Dictionary<AudioMasterType, List<AudioBusType>> _audioBusTypeByMasterType;
-        private Dictionary<string, AudioMixerGroup> _outputMixerGroups;
+        private Dictionary<string, BusModel> m_busSettings;
+        private Dictionary<string, AudioElementModel> m_audioElements;
 
-        void IInitializable.Initialize()
+
+        #region INIT
+        public void Initialize()
         {
-            TaskUtils.OnSameThread(() => AsyncInit());
+            TaskUtils.OnSameThread(() => Bind());
         }
 
-        private async Task AsyncInit()
+        public async Task Bind()
         {
-            await LoadAudioMixerAndData();
-            SetOutputAudioGroup();
-            InitMasterGroups();
-            InitializeAllVolumes();
+            IsInitialize = false;
+            m_busSettings = new Dictionary<string, BusModel>();
+            m_audioElements = new Dictionary<string, AudioElementModel>();
 
-            IsInit = true;
-        }
-
-        private async Task LoadAudioMixerAndData()
-        {
-//#if UNITY_EDITOR
-//            //TODO Load with adressable
-//            object dataObj = await LoadAsyncFromAssetBundle("AudioMixerInstaller.asset") as AudioMixerScriptable;
-
-//            if(dataObj != null)
-//            {
-//                _data = dataObj as AudioMixerScriptable;
-//            }
-//            else
-//            {
-//                Debug.LogError("Audio mixer data scriptable is null");
-//            }
-//#endif
-
-            await new WaitForEndOfFrame();
-        }
-
-
-        private void InitMasterGroups()
-        {
-            if (_audioMasterGroups != null)
+            foreach(var masterSetting in m_setting.masterBusSettings)
             {
-                _audioMasterGroupLibrary = new Dictionary<AudioMasterType, AudioMasterGroup>();
-                _audioBusTypeByMasterType = new Dictionary<AudioMasterType, List<AudioBusType>>();
+                m_busSettings.Add(masterSetting.mixerGroupName, masterSetting);
+                SetVolume(masterSetting.mixerGroupName, GetVolumeByPlayerPref(masterSetting.mixerGroupName));
+            }
 
-                foreach (AudioMasterGroupBind bind in _audioMasterGroups)
+            foreach (var busSetting in m_setting.simpleBusSettings)
+            {
+                busSetting.AudioSource = m_audioSources.InstantiateAudioSource(busSetting);
+            
+                if (busSetting.audioLibraries != null)
                 {
-                    if (!_audioMasterGroupLibrary.ContainsKey(bind.masterType))
+                    foreach (var library in busSetting.audioLibraries)
                     {
-                        _audioMasterGroupLibrary.Add(bind.masterType, new AudioMasterGroup(bind, this, _audioSourceBusBind));
+                        await library.PreloadAudioData();
+
+                        if (library.elements != null)
+                        {
+                            foreach (var element in library.elements)
+                            {
+                                if (!m_audioElements.ContainsKey(element.name))
+                                {
+                                    element.AudioSource = busSetting.AudioSource;
+                                    m_audioElements.Add(element.clip.name, element);
+                                }
+                                else
+                                {
+                                    Debug.LogError("[AudioBusController]: audio element with " + element.name + " already exist");
+                                }
+                            }
+                        }
                     }
 
-                    if (!_audioBusTypeByMasterType.ContainsKey(bind.masterType))
-                    {
-                        _audioBusTypeByMasterType.Add(bind.masterType, new List<AudioBusType>());
-                    }
-
-                    foreach (var busGroup in bind.busGroups)
-                    {
-                        _audioBusTypeByMasterType[bind.masterType].Add(busGroup.busType);
-                    }
+                    m_busSettings.Add(busSetting.mixerGroupName, busSetting);
+                    SetVolume(busSetting.mixerGroupName, GetVolumeByPlayerPref(busSetting.mixerGroupName));
                 }
             }
-        }
 
-        private void InitializeAllVolumes()
+            IsInitialize = true;
+        }
+        #endregion
+
+        #region DESTROY
+        public async Task Unload()
         {
-            if (_audioMasterGroupLibrary != null)
+            if (m_busSettings != null)
             {
-                foreach (var masterGroup in _audioMasterGroupLibrary.Values)
+                foreach (var busSetting in m_setting.simpleBusSettings)
                 {
-                    SetVolume(masterGroup.MasterType, GetVolumeByPlayerPref(masterGroup.MasterType));
+                    if (busSetting.audioLibraries != null)
+                    {
+                        foreach (var library in busSetting.audioLibraries)
+                            await library.UnloadAudioData();
+                    }
                 }
-            }
-        }
-
-        #region STATE_METHODS
-        public void Play(string key, AudioBusType busType)
-        {
-            AudioMasterType masterType = GetMasterType(busType);
-            if(masterType != AudioMasterType.generalMaster && _audioMasterGroupLibrary.ContainsKey(masterType))
-            {
-                _audioMasterGroupLibrary[masterType].Play(key, busType);
-            }
-        }
-
-        public void Play(string key, AudioBusType busType, AudioSource audioSource)
-        {
-            AudioMasterType masterType = GetMasterType(busType);
-            if (masterType != AudioMasterType.generalMaster && _audioMasterGroupLibrary.ContainsKey(masterType))
-            {
-                _audioMasterGroupLibrary[masterType].Play(key, busType, audioSource);
-            }
-        }
-
-        public void Pause(bool isPaused, AudioBusType busType)
-        {
-            AudioMasterType masterType = GetMasterType(busType);
-            if (masterType != AudioMasterType.generalMaster && _audioMasterGroupLibrary.ContainsKey(masterType))
-            {
-                _audioMasterGroupLibrary[masterType].Pause(isPaused, busType);
-            }
-        }
-
-        public void Stop(AudioBusType busType)
-        {
-            AudioMasterType masterType = GetMasterType(busType);
-            if (masterType != AudioMasterType.generalMaster && _audioMasterGroupLibrary.ContainsKey(masterType))
-            {
-                _audioMasterGroupLibrary[masterType].Stop(busType);
-            }
-        }
-
-        public float GetVolume(AudioMasterType audioMasterType)
-        {
-            if (_audioMasterGroupLibrary.ContainsKey(audioMasterType))
-            {
-                return _audioMasterGroupLibrary[audioMasterType].CurrentVolume;
-            }
-
-            return 1f;
-        }
-
-        public void SetVolume(AudioMasterType audioMasterType, float volume)
-        {
-            if (_audioMasterGroupLibrary.ContainsKey(audioMasterType))
-            {
-                _audioMasterGroupLibrary[audioMasterType].SetVolume(_audioMixerData.mixer, volume);
             }
         }
         #endregion
 
-        #region GETTER
+        #region PLAY
 
-        private AudioMasterType GetMasterType(AudioBusType busType)
+        public void Play(string clipName)
         {
-            if(_audioBusTypeByMasterType != null)
+            if (m_audioElements.ContainsKey(clipName))
             {
-                foreach(var key in _audioBusTypeByMasterType.Keys)
-                {
-                    if (_audioBusTypeByMasterType[key].Contains(busType))
-                        return key;
-                }
+                PlayAudioElement(m_audioElements[clipName].AudioSource, m_audioElements[clipName]);
             }
+        }
 
-            return AudioMasterType.generalMaster;
+        private void PlayAudioElement(AudioSource _audioSource, AudioElementModel _audioElement)
+        {
+            _audioSource.clip = _audioElement.clip;
+            _audioSource.volume = _audioElement.generalVolume;
+            _audioSource.pitch = GetPitch(_audioElement.randomPitch);
+            _audioSource.loop = _audioElement.isLooping;
+           
+            //_currentAudioClipIsPlaying = false;
+
+            //if (!_isPaused)
+            //{
+            if (_audioElement.playOneShot)
+            {
+                _audioSource.PlayOneShot(_audioSource.clip);
+            }
+            else
+            {
+                _audioSource?.Play(/*audioElement.delay*/);
+            }
+                //_currentAudioClipIsPlaying = true;
+            //}
+        }
+
+        private float GetPitch((float min, float max) pitch)
+        {
+            float generalPitch = (pitch.min == pitch.max)
+                ? pitch.min
+                : UnityEngine.Random.Range(pitch.min, pitch.max);
+
+            return Mathf.Clamp(generalPitch, -3f, 3f);
         }
         #endregion
 
-        #region MIXER_GROUP
-        public AudioMixerGroup GetOutputMixerGroup(string key)
+        #region VOLUME
+        public void SetVolume(string _busName, float _volume)
         {
-            if (_outputMixerGroups != null && _outputMixerGroups.ContainsKey(key))
+            if (m_busSettings.ContainsKey(_busName))
             {
-                return _outputMixerGroups[key];
+                m_busSettings[_busName].CurrentVolume = Mathf.Clamp(_volume, 0.0001f, 1f);
+                m_setting.audioMixer.SetFloat(m_busSettings[_busName].exposedParamName, Mathf.Log10(m_busSettings[_busName].CurrentVolume) * 20);
             }
-
-            return null;
+            else
+            {
+                Debug.LogError("[AudioService]: set volume failed for bus with name - " + _busName);
+            }
         }
 
-        private void SetOutputAudioGroup()
+        public float GetVolume(string _busName)
         {
-            _outputMixerGroups = new Dictionary<string, AudioMixerGroup>();
-            AudioMixerGroup[] currentGroups = _audioMixerData.mixer.FindMatchingGroups(_audioMixerData.groupMasterName);
-            if (currentGroups != null)
+            if (m_busSettings.ContainsKey(_busName))
             {
-                foreach (var group in currentGroups)
-                {
-                    if (!_outputMixerGroups.ContainsKey(group.name))
-                    {
-                        _outputMixerGroups.Add(group.name, group);
-                    }
-                }
+                return m_busSettings[_busName].CurrentVolume;
+            }
+            else
+            {
+                Debug.LogError("[AudioService]: get volume failed for bus with name - " + _busName);
+                return 1f;
             }
         }
         #endregion
@@ -203,27 +165,24 @@ namespace AudioManagement.Service
         #region PLAYER_PREF
         public void SaveAllVolumeByPlayerPref()
         {
-            if (_audioMasterGroupLibrary != null)
+            foreach(var busSetting in m_busSettings.Values)
             {
-                foreach(var audioMasterType in  _audioMasterGroupLibrary.Keys)
-                {
-                    SaveVolumeByPlayerPref(audioMasterType, GetVolume(audioMasterType));
-                }
-            }
-        }
-        public void SaveVolumeByPlayerPref(AudioMasterType audioMasterType, float value)
-        {
-            if (_audioMasterGroupLibrary != null && _audioMasterGroupLibrary.ContainsKey(audioMasterType))
-            {
-                _audioMasterGroupLibrary[audioMasterType].SaveVolumeByPlayerPref(value);
+                if(!string.IsNullOrEmpty(busSetting.playerPrefName))
+                    SaveVolumeByPlayerPref(busSetting.playerPrefName);
             }
         }
 
-        public float GetVolumeByPlayerPref(AudioMasterType audioMasterType)
+        public void SaveVolumeByPlayerPref(string _busName)
         {
-            if (_audioMasterGroupLibrary != null && _audioMasterGroupLibrary.ContainsKey(audioMasterType))
+            PlayerPrefs.SetFloat(m_busSettings[_busName].playerPrefName, m_busSettings[_busName].CurrentVolume);
+        }
+
+        public float GetVolumeByPlayerPref(string _busName)
+        {
+            if(m_busSettings.ContainsKey(_busName)
+                && PlayerPrefs.HasKey(m_busSettings[_busName].playerPrefName))
             {
-                return _audioMasterGroupLibrary[audioMasterType].GetVolumeByPlayerPref();
+                return PlayerPrefs.GetFloat(m_busSettings[_busName].playerPrefName);
             }
 
             return 1f;

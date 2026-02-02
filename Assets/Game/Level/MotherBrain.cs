@@ -13,7 +13,6 @@ namespace Game.Level
     public class MotherBrain : MonoBehaviour
     {
         [Inject] private LevelService levelService;
-        [Inject] private Audio.AudioService audioService; 
 
         private EnemyFactory m_enemyFactory;
         private WavesSettings m_wavesSettings;
@@ -39,7 +38,6 @@ namespace Game.Level
             if (spaceActionRef.action.WasPressedThisFrame())
             {
                 objA.Die();
-                audioService.Play("Tap");
             }
         }
 

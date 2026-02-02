@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcb2c32df0c1379409e1bc6d4921f5db, type: 3}
+  m_Name: AudioSetup
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 5d5e1ffc67ddada4093ed23bf66eb0e8, type: 2}
+  masterBusSettings:
+  - mixerGroup: {fileID: 24300002, guid: 5d5e1ffc67ddada4093ed23bf66eb0e8, type: 2}
+    playerPrefName: Master
+    exposedParamName: MasterExposedParam
+  simpleBusSettings:
+  - mixerGroup: {fileID: 5037333993728177121, guid: 5d5e1ffc67ddada4093ed23bf66eb0e8, type: 2}
+    playerPrefName: Music
+    exposedParamName: MusicExposedParam
+    playOnAwake: 1
+    audioLibraries:
+    - {fileID: 11400000, guid: 7a306939bcdf407408bd51a6a9180054, type: 2}
+  - mixerGroup: {fileID: -3492046069458997606, guid: 5d5e1ffc67ddada4093ed23bf66eb0e8, type: 2}
+    playerPrefName: SoundEffect
+    exposedParamName: SoundEffectParam
+    playOnAwake: 0
+    audioLibraries:
+    - {fileID: 11400000, guid: a078882f6482b604b8b3ce1b838cd145, type: 2}
