@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc4b1032ce89954db2f602bf54aa985, type: 3}
+  m_Name: Theme1
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: a954120b87007d04eadce52aa65d7e7e, type: 3}
+  generalVolume: 1
+  isLooping: 1
+  playOneShot: 0

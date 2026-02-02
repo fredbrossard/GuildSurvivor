@@ -1,7 +1,7 @@
 using Entity.Enemy;
 using Game.Entity.Enemy;
 using Game.Settings;
-using Game.Utils;
+using Utils;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +13,7 @@ namespace Game.Level
     public class MotherBrain : MonoBehaviour
     {
         [Inject] private LevelService levelService;
+
         private EnemyFactory m_enemyFactory;
         private WavesSettings m_wavesSettings;
 
