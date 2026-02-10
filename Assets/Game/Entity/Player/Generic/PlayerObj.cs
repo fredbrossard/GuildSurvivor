@@ -1,5 +1,6 @@
 using Game.Entity.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Entity.Player
 {
@@ -7,10 +8,17 @@ namespace Game.Entity.Player
     public class PlayerObj : MonoBehaviour, IEntity<PlayerModel>
     {
         public bool IsAlive { get; set ; }
-        [field:SerializeField] public PlayerModel Model { get; private set ; }
-
         public GameObject GameObject => gameObject;
         public PlayerMovement PlayerMovement { get; private set; }
+
+        public PlayerModel Model { get; set; }
+
+        //[Inject]
+        //public void Construct(PlayerModel _model)
+        //{
+        //    Model = _model;
+        //    Bind();
+        //}
 
         void Awake()
         {
@@ -19,11 +27,12 @@ namespace Game.Entity.Player
 
         void Start()
         {
-            Bind();
+
         }
 
-        public void Bind()
+        public void Bind(PlayerModel _model)
         {
+            Model = _model;
             PlayerMovement.SetSpeed(Model.initialSpeed);
         }
 
@@ -35,6 +44,11 @@ namespace Game.Entity.Player
         public void Die()
         {
             IsAlive = false;
+        }
+
+        public class Factory : PlaceholderFactory<PlayerModel, PlayerObj>
+        {
+
         }
     }
 }

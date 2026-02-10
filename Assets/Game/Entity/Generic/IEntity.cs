@@ -6,9 +6,9 @@ namespace Game.Entity.Generic
     {
         public GameObject GameObject { get;}
         public bool IsAlive { get; }
-        public T Model { get; }
+        public T Model { get; set; }
 
-        public void Bind();
+        public void Bind(T _model);
         public void Alive();
         public void Die();
     }

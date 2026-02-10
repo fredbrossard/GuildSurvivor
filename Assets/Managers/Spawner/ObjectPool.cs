@@ -27,7 +27,7 @@ namespace Managers.Spawner
                 obj.SetActive(false);
 
                 T genericObj = obj.GetComponent<T>();
-                genericObj.Bind();
+                //genericObj.Bind();
                 genericObj.OnReleaseObj += Release;
                 m_stack.Push(genericObj);
             }

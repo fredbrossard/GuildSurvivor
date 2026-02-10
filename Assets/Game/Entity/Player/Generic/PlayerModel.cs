@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace Game.Entity.Player
 {
-    [CreateAssetMenu(fileName = "Data", menuName = "Data/Model/PlayerModel", order = 1), Serializable]
-    public class PlayerModel : ScriptableObject, IEntityModel
+    //[CreateAssetMenu(fileName = "Data", menuName = "Data/Model/PlayerModel", order = 1), Serializable]
+    [Serializable]
+    public class PlayerModel : IEntityModel
     {
+        public GameObject prefab;
         public Sprite sprite;
 
         public uint initialMaxHealth;

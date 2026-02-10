@@ -10,7 +10,7 @@ namespace Entity.Enemy
 
         private void Awake()
         {
-            Bind(enemySpawnSettings.poolRefs);
+            //Bind(enemySpawnSettings.poolRefs);
         }
 
         public override EnemyObj GetObj(EnemyObj obj)

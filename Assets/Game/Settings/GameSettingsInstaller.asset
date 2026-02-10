@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36a0f158f04055459469dc0dc56cb4e, type: 3}
+  m_Name: GameSettingsInstaller
+  m_EditorClassIdentifier: 
+  playerSettings:
+    maxHealth: 99999
+    maxSpeed: 5
+    models:
+    - prefab: {fileID: 2266428138348936029, guid: 1d3fff6359edc2840946b087875086aa, type: 3}
+      sprite: {fileID: 7482667652216324306, guid: 9868f23a17f86be4ba6b3d57d8936039, type: 3}
+      initialMaxHealth: 80
+      initialLvl: 1
+      initialAttack: 5
+      cooldownAttack: 0
+      initialSpeed: 0.4
+    - prefab: {fileID: 503907885909138340, guid: b6c21393cb11a1944b3a111386e854ca, type: 3}
+      sprite: {fileID: 7482667652216324306, guid: dc53e9ff94805e04e93150aa91437ef4, type: 3}
+      initialMaxHealth: 80
+      initialLvl: 1
+      initialAttack: 5
+      cooldownAttack: 0
+      initialSpeed: 0.4
+  enemySettings:
+    maxHealth: 0
+    maxSpeed: 0

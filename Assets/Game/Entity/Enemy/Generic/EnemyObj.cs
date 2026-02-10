@@ -11,7 +11,7 @@ namespace Game.Entity.Enemy
         public SpriteRenderer spriteRenderer;
         public bool IsAlive { get; set; }
 
-        [field:SerializeField] public EnemyModel Model { get; private set; }
+        public EnemyModel Model { get; set; }
 
         public GameObject GameObject => gameObject;
 
@@ -28,7 +28,7 @@ namespace Game.Entity.Enemy
             OnReleaseObj?.Invoke(gameObject);
         }
 
-        public void Bind()
+        public void Bind(EnemyModel _model)
         {
             spriteRenderer.sprite = Model.sprite;
         }

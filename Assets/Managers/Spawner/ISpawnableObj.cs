@@ -7,7 +7,6 @@ namespace Managers.Spawner
     {
         //public uint UId { get; set; }
         public GameObject GameObject { get; }
-        public void Bind();
         public Action<GameObject> OnReleaseObj { get; set; } 
     }
 }
