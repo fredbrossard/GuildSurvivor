@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Game.Settings
 {
     [Serializable]
-	public class EnemySpawnSettings
-	{
+    public class EnemySpawnSettings
+    {
         [Header("Objects Pool")]
         public PoolRef[] poolRefs;
         [Header("Waves")]
